@@ -1,0 +1,129 @@
+==============================================
+   STUDENT APP - HOW TO RUN (READ THIS FIRST)
+==============================================
+
+WHAT YOU NEED INSTALLED:
+--------------------------
+1. Java 17 or above
+   - Check: open terminal, type:  java -version
+   - Download from: https://adoptium.net
+
+2. Maven
+   - Check: open terminal, type:  mvn -version
+   - Download from: https://maven.apache.org/download.cgi
+
+3. VS Code (already have it)
+   - Install extension: "Extension Pack for Java" by Microsoft
+
+
+==============================================
+STEP 1 - OPEN THE PROJECT
+==============================================
+- Open VS Code
+- File > Open Folder > select the "studentapp" folder
+
+
+==============================================
+STEP 2 - RUN THE PROJECT
+==============================================
+Option A (Terminal):
+  - Open terminal in VS Code (Ctrl + `)
+  - Type this command:
+      mvn spring-boot:run
+  - Wait for: "Started StudentAppApplication"
+
+Option B (VS Code):
+  - Open StudentAppApplication.java
+  - Click the green "Run" button above main()
+
+
+==============================================
+STEP 3 - TEST THE APIs USING POSTMAN
+==============================================
+
+BASE URL: http://localhost:8080/api/students
+
+--- ADD A STUDENT (POST) ---
+Method: POST
+URL: http://localhost:8080/api/students
+Body (raw > JSON):
+{
+  "name": "Sharad Sharma",
+  "email": "sharad@gmail.com",
+  "course": "CSE",
+  "cgpa": 7.27
+}
+
+--- GET ALL STUDENTS (GET) ---
+Method: GET
+URL: http://localhost:8080/api/students
+
+--- GET ONE STUDENT (GET) ---
+Method: GET
+URL: http://localhost:8080/api/students/1
+
+--- UPDATE STUDENT (PUT) ---
+Method: PUT
+URL: http://localhost:8080/api/students/1
+Body (raw > JSON):
+{
+  "name": "Sharad Sharma Updated",
+  "email": "sharad@gmail.com",
+  "course": "CSE",
+  "cgpa": 8.0
+}
+
+--- DELETE STUDENT (DELETE) ---
+Method: DELETE
+URL: http://localhost:8080/api/students/1
+
+--- GET BY COURSE (GET) ---
+Method: GET
+URL: http://localhost:8080/api/students/course/CSE
+
+--- GET TOP STUDENTS cgpa > 8 (GET) ---
+Method: GET
+URL: http://localhost:8080/api/students/top
+
+
+==============================================
+STEP 4 - SEE DATABASE VISUALLY (BONUS)
+==============================================
+- Open browser
+- Go to: http://localhost:8080/h2-console
+- JDBC URL: jdbc:h2:mem:studentdb
+- Username: sa
+- Password: (leave empty)
+- Click Connect
+- You can see your students table with all data!
+
+
+==============================================
+PROJECT STRUCTURE (understand this)
+==============================================
+
+studentapp/
+├── pom.xml                          (dependencies - like package.json)
+└── src/main/java/com/sharad/studentapp/
+    ├── StudentAppApplication.java   (entry point - runs everything)
+    ├── model/
+    │   └── Student.java             (the Student table structure)
+    ├── repository/
+    │   └── StudentRepository.java   (talks to database)
+    ├── service/
+    │   └── StudentService.java      (business logic)
+    └── controller/
+        └── StudentController.java   (handles API requests)
+
+
+==============================================
+IF SOMETHING GOES WRONG
+==============================================
+Error: "Port 8080 already in use"
+Fix: Change server.port=8081 in application.properties
+
+Error: "Java not found"
+Fix: Install Java 17 from https://adoptium.net
+
+Error: Maven not found
+Fix: Install Maven or use ./mvnw spring-boot:run instead
